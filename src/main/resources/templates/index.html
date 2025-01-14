@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Website Layout</title>
+	<link rel="stylesheet" href="/css/styles.css">
+	<link rel="stylesheet" href="/css/styles1.css">
+</head>
+
+<body>
+	<header>
+		<div class="navbar">
+			<div class="logo">Zepto</div>
+			<div class="delivery">Delivery in 9 Mins</div>
+			<div class="location"></div>
+			<div class="search-bar">
+				<input type="text" placeholder="Search for 'amul butter'">
+			</div>
+			<div class="user-options">
+				<div class="cart-icon">
+					<button id="cartButton"> <img src="cart.png" alt="Cart"></button>
+					<button onclick="redirectToOrders()"><img src="user.png" class="list-icon"> </button>
+					<button id="mylist" class="list-icon"><img src="list.png">
+					</button>
+				</div>
+			</div>
+			<div class="cart-panel" id="cartPanel">
+				<div class="cart-header">
+					<button id="closeCart" class="close-btn">← Back</button>
+				</div>
+				<div class="cart-content">
+
+				</div>
+			</div>
+
+			<div class="overlay" id="overlay"></div>
+
+			<!-- My List Panel -->
+			<div class="list-panel" id="listPanel">
+				<div class="list-header">
+					<button id="closeList" class="close-btn">← Back</button>
+				</div>
+				<div class="list-content"></div>
+			</div>
+
+			<div class="overlay" id="overlay"></div>
+
+		</div>
+		</div>
+
+	</header>
+
+	<section class="banner">
+		<div class="banner-content">
+			<h1>Daily Needs</h1>
+			<p>Fruits,Vegetables & More</p>
+			<button>Order Now</button>
+		</div>
+
+	</section>
+
+	<section class="products">
+		<div class="product-section">
+			<div class="section-header">
+				<h2>Fruits & Vegetables</h2>
+				<a href="#">See All</a>
+			</div>
+			<div class="product-list">
+				<div class="product-card" th:each="product : ${products}">
+
+					<img th:src="@{${product.image}}" alt="Product Image" class="product-image" />
+					<p class="product-name" th:text="${product.productName}"></p>
+					<p class="product-price" th:text="'₹ ' +  ${product.price}">₹</p>
+
+					<button type="button"
+						th:attr="data-id=${product.id}, data-name=${product.productName}, data-price=${product.price}"
+						class="add-to-cart-button">Add to Cart</button>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="product-section">
+			<div class="section-header">
+				<h2>Must Have in Your Household</h2>
+				<a href="#">See All</a>
+			</div>
+			<div class="product-list">
+				<div class="product-card" th:each="product : ${dailyproduct}">
+
+					<img th:src="@{${product.image}}" alt="Product Image" class="product-image" />
+
+					<p class="product-name" th:text="${product.productName}"></p>
+					<p class="product-price" th:text="'₹ ' +  ${product.price}">₹</p>
+
+					<button type="button"
+						th:attr="data-id=${product.id}, data-name=${product.productName}, data-price=${product.price}"
+						class="add-to-cart-button">Add to Cart</button>
+				</div>
+
+			</div>
+		</div>
+	</section>
+	<script src="/script/script.js"></script>
+	<script>
+		function redirectToOrders() {
+			window.location.href = '/all-orders';
+		}
+	</script>
+
+</body>
+
+</html>

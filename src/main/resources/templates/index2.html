@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Zepto User Profile</title>
+	<link rel="stylesheet" href="/css/styles.css">
+	<link rel="stylesheet" href="/css/style2.css">
+</head>
+
+<body>
+	<header>
+		<div class="navbar">
+			<div class="logo">Zepto</div>
+			<div class="delivery">Delivery in 9 Mins</div>
+			<div class="location"></div>
+			<div class="search-bar">
+				<input type="text" placeholder="Search for 'amul butter'">
+			</div>
+			<div class="user-options">
+				<div class="cart-icon">
+					<button id="cartButton"> <img src="cart.png" alt="Cart"></button>
+					<button onclick="redirectToOrders()"><img src="user.png" class="list-icon"> </button>
+					<button id="mylist" class="list-icon"><img src="list.png">
+					</button>
+				</div>
+			</div>
+			
+			<div class="cart-panel" id="cartPanel">
+				<div class="cart-header">
+					<button id="closeCart" class="close-btn">← Back</button>
+				</div>
+				<div class="cart-content">
+
+				</div>
+			</div>
+
+			<div class="overlay" id="overlay"></div>
+
+			<!-- My List Panel -->
+			<div class="list-panel" id="listPanel">
+				<div class="list-header">
+					<button id="closeList" class="close-btn">← Back</button>
+				</div>
+				<div class="list-content"></div>
+			</div>
+
+			<div class="overlay" id="overlay"></div>
+
+		</div>
+		</div>
+
+	</header>
+
+	<div class="container">
+		<div class="sidebar">
+			<h3>Aryan Ramedwar</h3>
+
+			<ul>
+				<li>Orders</li>
+				<li>Customer Support</li>
+				<li>Manage Referrals</li>
+				<li>Addresses</li>
+				<li>Profile</li>
+				<li>Wallet</li>
+			</ul>
+			<div class="logout">
+				<button>Log Out</button>
+			</div>
+		</div>
+		<div class="content">
+			<div class="order-card">
+				<div class="order-items">
+
+				</div>
+
+				<div id="order-container">
+					<h2>Your Orders</h2>
+
+					<p th:text="${message}" style="color: green;"></p>
+
+					<table id="order-table">
+						<thead>
+							<tr>
+								<th>Order ID</th>
+								<th>Total Items</th>
+								<th>Total Price</th>
+								<th>Status</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="order : ${orders}">
+								<td th:text="${order.orderId}"></td>
+								<td th:text="${order.totalItems}"></td>
+								<td th:text="${order.totalPrice}"></td>
+								<td th:classappend="'status ' + (order.isScheduled ? 'running' : 'stopped')"
+									th:text="${order.status}"></td>
+								<td>
+									<form th:action="@{/stop-order/{orderId}(orderId=${order.orderId})}" method="post">
+										<button type="submit" class="stop-btn">
+											Stop
+										</button>
+									</form>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="/script/script.js"></script>
+</body>
+
+</html>

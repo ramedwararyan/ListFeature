@@ -1,0 +1,122 @@
+body {
+           font-family: Arial, sans-serif;
+           margin: 0;
+           padding: 0;
+           background-color: #f9f9f9;
+       }
+
+       .cart-container {
+           max-width: 400px;
+           margin: 20px auto;
+           background: #fff;
+           border-radius: 10px;
+           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+           overflow: hidden;
+       }
+
+       .cart-header {
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+           padding: 15px;
+           background: #effaf5;
+           color: #2c7a7b;
+           font-weight: bold;
+       }
+
+       .cart-header .savings {
+           color: #319795;
+       }
+
+       .cart-section {
+           padding: 15px;
+       }
+
+       .coupon-offers {
+           color: #3182ce;
+           font-weight: bold;
+           cursor: pointer;
+           margin-bottom: 20px;
+       }
+
+       .delivery-time {
+           display: flex;
+           align-items: center;
+           font-size: 14px;
+           color: #38a169;
+           margin-bottom: 15px;
+       }
+
+       .delivery-time img {
+           margin-right: 10px;
+       }
+
+       .cart-item {
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+           border-bottom: 1px solid #e2e8f0;
+           padding: 10px 0;
+       }
+
+       .cart-item:last-child {
+           border-bottom: none;
+       }
+
+       .item-info {
+           flex: 1;
+           margin-right: 10px;
+       }
+
+       .item-info .item-name {
+           font-weight: bold;
+           font-size: 14px;
+       }
+
+       .item-info .item-price {
+           color: #4a5568;
+           font-size: 12px;
+       }
+
+       .item-actions {
+           text-align: right;
+       }
+
+       .add-more {
+           text-align: center;
+           padding: 10px 0;
+           background: #edf2f7;
+           cursor: pointer;
+           color: #4a5568;
+           font-weight: bold;
+       }
+
+       .checkout {
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+           padding: 15px;
+           background: #edf2f7;
+           position: sticky;
+           bottom: 0;
+       }
+
+       .checkout .delivery-address {
+           font-size: 14px;
+           color: #4a5568;
+       }
+
+       .checkout .pay-button {
+           background: #e53e3e;
+           color: #fff;
+           padding: 10px 15px;
+           border: none;
+           border-radius: 5px;
+           cursor: pointer;
+       }
+
+       .pay-button:disabled {
+           background: #a0aec0;
+           cursor: not-allowed;
+       }
+	  
