@@ -10,6 +10,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -23,28 +25,14 @@ public class ScheduledOrders {
 
 	private String orderId;
 
-	@Column(nullable = false)
-	private String pickupDate;
-
-	@Column(nullable = false)
-	private String orderTime;
-
-	private int totalItems;
-
-	private double totalPrice;
-
-	@Column(nullable = false)
-	private String frequency;
-
-	private Integer intervalDays;
-
-	private Integer intervalTime;
+	
 
 	private LocalDateTime executionTime;
 
-	@OneToMany(mappedBy = "scheduledOrderRequest", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Item> items = new ArrayList<>();
-
+	@ManyToOne
+    @JoinColumn(name = "order_request_id", nullable = false) // Foreign key referencing OrderRequest
+    private OrderRequest orderRequest;
+	
 	public Long getId() {
 		return id;
 	}
@@ -61,62 +49,7 @@ public class ScheduledOrders {
 		this.orderId = orderId;
 	}
 
-	public String getPickupDate() {
-		return pickupDate;
-	}
-
-	public void setPickupDate(String pickupDate) {
-		this.pickupDate = pickupDate;
-	}
-
-	public String getOrderTime() {
-		return orderTime;
-	}
-
-	public void setOrderTime(String orderTime) {
-		this.orderTime = orderTime;
-	}
-
-	public int getTotalItems() {
-		return totalItems;
-	}
-
-	public void setTotalItems(int totalItems) {
-		this.totalItems = totalItems;
-	}
-
-	public double getTotalPrice() {
-		return totalPrice;
-	}
-
-	public void setTotalPrice(double totalPrice) {
-		this.totalPrice = totalPrice;
-	}
-
-	public String getFrequency() {
-		return frequency;
-	}
-
-	public void setFrequency(String frequency) {
-		this.frequency = frequency;
-	}
-
-	public Integer getIntervalDays() {
-		return intervalDays;
-	}
-
-	public void setIntervalDays(Integer intervalDays) {
-		this.intervalDays = intervalDays;
-	}
-
-	public Integer getIntervalTime() {
-		return intervalTime;
-	}
-
-	public void setIntervalTime(Integer intervalTime) {
-		this.intervalTime = intervalTime;
-	}
-
+	
 	public LocalDateTime getExecutionTime() {
 		return executionTime;
 	}
@@ -125,12 +58,16 @@ public class ScheduledOrders {
 		this.executionTime = executionTime;
 	}
 
-	public List<Item> getItems() {
-		return items;
+	public OrderRequest getOrderRequest() {
+		return orderRequest;
 	}
 
-	public void setItems(List<Item> items) {
-		this.items = items;
+	public void setOrderRequest(OrderRequest orderRequest) {
+		this.orderRequest = orderRequest;
 	}
 
+	
+
+	
+	
 }

@@ -24,6 +24,7 @@ public class OrderController {
 
 	@Autowired
 	private OrderService orderService;
+	
 
 	 /**
      * API endpoint to place an order.
@@ -46,7 +47,7 @@ public class OrderController {
 			System.out.println("  Price: " + item.getPrice());
 		}
 
-		orderService.saveExecutionDetail(orderId, orderRequest.getFrequency(), orderRequest.getPickupDate(),
+		orderService.saveOrderDetails(orderId, orderRequest.getFrequency(), orderRequest.getPickupDate(),
 				orderRequest.getOrderTime(), orderRequest.getTotalItems(), orderRequest.getTotalPrice(),
 				LocalDateTime.now(), orderRequest.getIntervalDays(), orderRequest.getIntervalTime(),
 				orderRequest.getItems());
@@ -57,10 +58,8 @@ public class OrderController {
 		Runnable task = () -> {
 			try {
 				System.out.println("Executing task for order ID: " + orderId + " at " + LocalDateTime.now());
-				orderService.saveExecutionDetails(orderId, orderRequest.getFrequency(), orderRequest.getPickupDate(),
-						orderRequest.getOrderTime(), orderRequest.getTotalItems(), orderRequest.getTotalPrice(),
-						LocalDateTime.now(), orderRequest.getIntervalDays(), orderRequest.getIntervalTime(),
-						orderRequest.getItems());
+				
+				orderService.saveExecutionDetails(orderId);
 			} catch (Exception e) {
 				System.err.println("Error during task execution: " + e.getMessage());
 			}

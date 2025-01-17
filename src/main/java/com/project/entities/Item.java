@@ -23,11 +23,9 @@ public class Item {
 	@JoinColumn(name = "order_request_id")
 	private OrderRequest orderRequest;
 
-	@ManyToOne
-	@JoinColumn(name = "scheduled_order_request_id")
-	private ScheduledOrders scheduledOrderRequest;
+	
 
-	// Getters and Setters
+
 
 	public Long getId() {
 		return id;
@@ -69,12 +67,6 @@ public class Item {
 		this.orderRequest = orderRequest;
 	}
 
-	public ScheduledOrders getScheduledOrderRequest() {
-		return scheduledOrderRequest;
-	}
-
-	public void setScheduledOrderRequest(ScheduledOrders scheduledOrderRequest) {
-		this.scheduledOrderRequest = scheduledOrderRequest;
-	}
+	
 
 }

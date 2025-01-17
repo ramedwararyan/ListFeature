@@ -21,30 +21,18 @@ public class OrderService {
 	@Autowired
 	private OrderRequestRepository orderRequestRepository;
 
-	public void saveExecutionDetails(String orderId, String frequency, String pickupDate, String orderTime,
-			int totalItems, double totalPrice, LocalDateTime scheduledTime, Integer intervalDays, Integer intervalTime,
-			List<Item> items) {
+	public void saveExecutionDetails(String orderId) {
 
 		ScheduledOrders scheduledOrder = new ScheduledOrders();
 
+		 OrderRequest orderRequest = orderRequestRepository.findByOrderId(orderId)
+	                .orElseThrow(() -> new RuntimeException("OrderRequest not found"));
+
 		// Update order details
 		scheduledOrder.setOrderId(orderId);
-		scheduledOrder.setFrequency(frequency);
-		scheduledOrder.setPickupDate(pickupDate);
-		scheduledOrder.setOrderTime(orderTime);
-		scheduledOrder.setTotalItems(totalItems);
-		scheduledOrder.setTotalPrice(totalPrice);
+		
 		scheduledOrder.setExecutionTime(LocalDateTime.now());
-		scheduledOrder.setIntervalDays(intervalDays);
-		scheduledOrder.setIntervalTime(intervalTime);
-
-		// Re-attach and set items to the new order
-		for (Item item : items) {
-			// Ensure it's treated as a new entity
-			item.setId(null); // Ensure it's treated as a new entity
-			item.setScheduledOrderRequest(scheduledOrder); // Associate item with the new order
-		}
-		scheduledOrder.setItems(items);
+		scheduledOrder.setOrderRequest(orderRequest); // Set the relationship
 
 		System.out.println("Order is placed");
 		// Save the updated order
@@ -53,7 +41,7 @@ public class OrderService {
 		System.out.println("Updated execution time for order ID: " + orderId);
 	}
 
-	public void saveExecutionDetail(String orderId, String frequency, String pickupDate, String orderTime,
+	public void saveOrderDetails(String orderId, String frequency, String pickupDate, String orderTime,
 			int totalItems, double totalPrice, LocalDateTime scheduledTime, Integer intervalDays, Integer intervalTime,
 			List<Item> items) {
 

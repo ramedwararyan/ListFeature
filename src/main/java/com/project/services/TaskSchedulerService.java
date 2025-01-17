@@ -35,27 +35,30 @@ public class TaskSchedulerService {
 
 			ScheduledFuture<?> futureTask;
 			// Schedule the task based on the specified frequency
-			if ("Daily".equalsIgnoreCase(frequency)) {
-				futureTask = scheduler.scheduleAtFixedRate(task, initialDelay, TimeUnit.DAYS.toSeconds(1),
-						TimeUnit.SECONDS);
-			} else if ("Weekly".equalsIgnoreCase(frequency)) {
-				futureTask = scheduler.scheduleAtFixedRate(task, initialDelay, TimeUnit.DAYS.toSeconds(7),
-						TimeUnit.SECONDS);
-			} else if ("Monthly".equalsIgnoreCase(frequency)) {
-				futureTask = scheduler.scheduleAtFixedRate(task, initialDelay, TimeUnit.DAYS.toSeconds(30),
-						TimeUnit.SECONDS);
-			} else if ("N/A".equalsIgnoreCase(frequency)) {
-				if (integer != null) {
-					futureTask = scheduler.scheduleAtFixedRate(task, initialDelay, TimeUnit.DAYS.toSeconds(integer),
-							TimeUnit.SECONDS);
-				} else if (integer2 != null) {
-					futureTask = scheduler.scheduleAtFixedRate(task, initialDelay, integer2, TimeUnit.SECONDS);
-				} else {
-					futureTask = scheduler.schedule(task, initialDelay, TimeUnit.SECONDS); // One-time task
-				}
-			} else {
-				futureTask = scheduler.schedule(task, initialDelay, TimeUnit.SECONDS); // Default one-time task
-			}
+			String normalizedFrequency = frequency.toLowerCase(); // Normalize input once for efficiency
+switch (normalizedFrequency) {
+    case "daily":
+        futureTask = scheduler.scheduleAtFixedRate(task, initialDelay, TimeUnit.DAYS.toSeconds(1), TimeUnit.SECONDS);
+        break;
+    case "weekly":
+        futureTask = scheduler.scheduleAtFixedRate(task, initialDelay, TimeUnit.DAYS.toSeconds(7), TimeUnit.SECONDS);
+        break;
+    case "monthly":
+        futureTask = scheduler.scheduleAtFixedRate(task, initialDelay, TimeUnit.DAYS.toSeconds(30), TimeUnit.SECONDS);
+        break;
+    case "n/a":
+        if (integer != null) {
+            futureTask = scheduler.scheduleAtFixedRate(task, initialDelay, TimeUnit.DAYS.toSeconds(integer), TimeUnit.SECONDS);
+        } else if (integer2 != null) {
+            futureTask = scheduler.scheduleAtFixedRate(task, initialDelay, integer2, TimeUnit.SECONDS);
+        } else {
+            futureTask = scheduler.schedule(task, initialDelay, TimeUnit.SECONDS); // One-time task
+        }
+        break;
+    default:
+        futureTask = scheduler.schedule(task, initialDelay, TimeUnit.SECONDS); // Default one-time task
+        break;
+}
 
 			// Store the scheduled task for future reference
 			scheduledTasks.put(orderId, futureTask);

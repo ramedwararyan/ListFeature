@@ -36,6 +36,10 @@ public class OrderRequest {
 
 	@OneToMany(mappedBy = "orderRequest", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Item> items = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "orderRequest", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ScheduledOrders> scheduledOrders = new ArrayList<>();
+
 
 	private boolean isScheduled;
 
@@ -138,4 +142,15 @@ public class OrderRequest {
 	public void setItems(List<Item> items) {
 		this.items = items;
 	}
+
+	public List<ScheduledOrders> getScheduledOrders() {
+		return scheduledOrders;
+	}
+
+	public void setScheduledOrders(List<ScheduledOrders> scheduledOrders) {
+		this.scheduledOrders = scheduledOrders;
+	}
+
+
+	
 }
